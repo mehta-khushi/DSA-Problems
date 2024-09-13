@@ -1,0 +1,39 @@
+/*Problem : Write an integer input--> rotate the paper by 180 degrees
+condition:
+1. Is the number still readable?
+2. Does the number change?
+Return True if both condition satisfies else False*/
+
+import java.util.*;
+class HelloWorld {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+       int number = sc.nextInt();
+       boolean result = isRotatedPalindrome(number);
+       System.out.println(result);
+    }
+    public static boolean isRotatedPalindrome(int number){
+        String numStr = String.valueOf(number);
+        for(char ch:numStr.toCharArray()){
+            if(ch !='0'&&ch!='1'&& ch!='8' && ch!='6' && ch!='9'){
+                return false;
+            }
+        }
+        String rotated = "";
+        for(int i=numStr.length()-1;i>=0;i--){
+            char ch = numStr.charAt(i);
+            if(ch == '6'){
+                rotated+='9';
+            }
+            else if(ch == '9'){
+                rotated+='6';
+            }
+            else{
+                rotated+=ch;
+            }
+        }
+        return rotated.equals(numStr);
+    }
+}
+
+    
