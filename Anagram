@@ -1,0 +1,16 @@
+//Problem:- check given string is anagram or not
+
+import java.util.*;
+class Main{
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        String str1 = sc.nextLine();
+        String str2 = sc.nextLine();
+        char[] charArr1 = str1.toCharArray();
+        char[] charArr2 = str2.toCharArray();
+        Arrays.sort(charArr1);
+        Arrays.sort(charArr2);
+        System.out.println(Arrays.equals(charArr1,charArr2));
+        
+    }
+}
