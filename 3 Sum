@@ -1,0 +1,57 @@
+/* Problem : Given an array nums of n integers, find all unique triplets in the array which gives the sum of zero.
+
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class ThreeSum {
+public static List<List<Integer>> threeSum(int[] nums) {
+// Step 1: Sort the array
+Arrays.sort(nums);
+List<List<Integer>> result = new ArrayList<>();
+
+// Step 2: Iterate over the array
+for (int i = 0; i < nums.length - 2; i++) {
+// Step 3: Skip duplicates for the first element
+if (i > 0 && nums[i] == nums[i - 1]) {
+continue;
+}
+
+// Step 4: Use the two-pointer technique
+int left = i + 1, right = nums.length - 1;
+
+while (left < right) {
+// Step 5: Calculate the sum
+int currentSum = nums[i] + nums[left] + nums[right];
+
+if (currentSum == 0) {
+// Step 6: Found a triplet, add to the result
+result.add(Arrays.asList(nums[i], nums[left], nums[right]));
+
+// Step 7: Skip duplicates for left and right pointers
+while (left < right && nums[left] == nums[left + 1]) left++;
+while (left < right && nums[right] == nums[right - 1]) right--;
+
+// Move both pointers inward
+left++;
+right--;
+
+} else if (currentSum < 0) {
+// Increment left pointer to increase the sum
+left++;
+} else {
+// Decrement right pointer to decrease the sum
+right--;
+}
+}
+}
+
+return result;
+}
+
+public static void main(String[] args) {
+int[] arr = {-1, 0, 1, 2, -1, -4};
+System.out.println(threeSum(arr)); // Output: [[-1, -1, 2], [-1, 0, 1]]
+}
+}
