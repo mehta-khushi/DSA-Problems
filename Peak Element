@@ -1,0 +1,20 @@
+Problem :- find the peak element in an array 
+peak element:- which is strictly greater than its neighbour 
+
+class Main{
+    public static void main(String[] args){
+        int arr[] = {1,2,3,1};
+        int str = 1;
+        int lst = arr.length-2;
+        while(str<lst){
+            int mid = (str+lst)/2;
+            if(arr[mid]>arr[mid+1]){
+                lst = mid;
+            }
+            else {
+                str = mid+1;
+            }
+        }
+        System.out.println(str);
+    }
+}
