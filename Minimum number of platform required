@@ -1,0 +1,46 @@
+//Find the minimum number of platform required 
+Problem:- You are given two arrays one is for arrival time of train and second is for departure time of train 
+you need find how many paltform are needed no train should overlap
+
+import java.util.Arrays;
+
+public class TrainPlatforms {
+public static int findMinimumPlatforms(int[] arrivals, int[] departures) {
+// Sort both arrivals and departures
+Arrays.sort(arrivals);
+Arrays.sort(departures);
+
+int platformNeeded = 0;
+int maxPlatforms = 0;
+int i = 0, j = 0;
+int n = arrivals.length;
+// i
+// {900, 940, 950, 1100, 1500, 1800};
+// j
+// {910, 1120, 1130, 1200, 1900, 2000};
+// Loop through all train arrival and departure times
+while (i < n && j < n) {
+// If a train is arriving before the previous one departs
+if (arrivals[i] <= departures[j]) {
+platformNeeded++;
+i++;
+maxPlatforms = Math.max(maxPlatforms, platformNeeded); // 1
+} else {
+// A train departs, freeing up a platform
+platformNeeded--;
+j++;
+}
+}
+
+return maxPlatforms;
+}
+
+public static void main(String[] args) {
+int[] arrivals = {900, 940, 950, 1100, 1500, 1800};
+int[] departures = {910, 1200, 1120, 1130, 1900, 2000};
+
+System.out.println(findMinimumPlatforms(arrivals, departures)); // Output: 3
+}
+}
+
+
