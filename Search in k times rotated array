@@ -1,0 +1,65 @@
+/*Problem:
+You are given a sorted array that is rotated at some unknown pivot.
+Write an efficient algorithm to search for a target/start element in this array.
+
+Input: nums = [4, 5, 6, 7, 0, 1, 2]
+
+
+target = 0
+Output: 4 (index of target) */
+
+import java.util.*;
+class HelloWorld {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] arr = new int[n];
+        for(int i=0;i<n;i++){
+            arr[i] = sc.nextInt();
+        }
+        int k = sc.nextInt();
+        rotateArr(arr,n,k);
+        int target = sc.nextInt();
+        search(arr,target);
+    }
+    public static void rotateArr(int[] arr,int size,int times){
+        times = times%size;
+        reverse(arr,0,size-1);
+        reverse(arr,0,times-1);
+        reverse(arr,times,size-1);
+    }
+    public static void reverse(int[] arr,int start,int end){
+        while(start<end){
+            int temp = arr[start];
+            arr[start] = arr[end];
+            arr[end] = temp;
+            start++;
+            end--;
+        }
+        System.out.println(Arrays.toString(arr));
+    }
+    public static void search(int[] arr,int tar){
+        int start = 0;
+        int end = arr.length - 1;
+        int index = -1;
+        while(start<end){
+            int mid = (start+end)/2;
+            if(arr[mid]==tar){
+                index = mid;
+                break;
+            }
+            else if(arr[mid]<tar){
+                end = mid-1;
+            }
+            else{
+                start = mid+1;
+            }
+        }
+        if(index==-1){
+            System.out.println("not found");
+        }
+        else{
+            System.out.println("Element "+tar+" is at "+index);
+        }
+    }
+}
