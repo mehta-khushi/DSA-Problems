@@ -1,0 +1,32 @@
+/* Problem : you are given an array of integers you need to find the maximum product of subarray */
+
+import java.util.*;
+class Solution{
+  public static void main(String[] args){
+    Scanner sc = new Scanner(System.in);
+    int n = sc.nextInt();
+    int[] arr = new int[n];
+    for(int i=0;i<arr.length;i++){
+      arr[i] = sc.nextInt();
+    }
+    int maxProduct = maximumProduct(arr);
+    System.out.println(maxProduct);
+  }
+  public static int maximumProduct(int[] nums){
+      int prefix = 1;
+      int suffix = 1;
+      int max = Integer.MIN_VALUE;
+      for(int i=0;i<nums.length;i++){
+        if(prefix==0){
+            prefix = 1;
+        }
+        if(suffix==0){
+          suffix = 1;  
+        }
+        prefix = prefix * nums[i];
+        suffix = suffix * nums[nums.length-i-1];
+        max = Math.max(max,Math.max(prefix,suffix));
+      }
+        return max;
+    }
+}
