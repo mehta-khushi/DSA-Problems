@@ -1,0 +1,75 @@
+/* Problem : Given Binary tree Please find the diamater of that tree
+
+Input Format
+The first and the only line of input will contain the node data, all separated by a single space. 
+Since -1 is used as an indication whether the left or right node data exist for root, it will not be a part of the node data.
+
+Output Format
+The only line of output prints an integer, representing the diameter of the tree.
+Sample Input 0
+2 4 5 6 -1 -1 7 20 30 80 90 -1 -1 8 -1 -1 9 -1 -1 -1 -1 -1 -1
+Sample Output 0
+8
+
+Soltution : 
+
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+    static class Node{
+        int data;
+        Node left;
+        Node right;
+        Node(int data){
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
+    }
+    public static Node buildTree(String[] nodes){
+        if(nodes.length==0 || nodes[0].equals("-1")){
+            return null;
+        }
+        Node root = new Node(Integer.parseInt(nodes[0]));
+        Queue<Node> q = new LinkedList<>();
+        q.add(root);
+        int i = 1;
+        while(i<nodes.length){
+            Node current = q.poll();
+            if(!nodes[i].equals("-1")){
+                current.left = new Node(Integer.parseInt(nodes[i]));
+                q.add(current.left);
+            }
+            i++;
+            if(i<nodes.length && !nodes[i].equals("-1")){
+                current.right = new Node(Integer.parseInt(nodes[i]));
+                q.add(current.right);
+            }
+            i++;
+        }
+        return root;
+    }
+    public static int calculateDiameter(Node root){
+        int[] diameter = new int[1];
+        heightAndUpdate(root,diameter);
+        return diameter[0];
+    }
+    public static int heightAndUpdate(Node node, int[] diameter){
+        if(node==null){
+            return 0;
+        }
+        int leftHeight = heightAndUpdate(node.left,diameter);
+        int rightHeight = heightAndUpdate(node.right,diameter);
+        diameter[0] = Math.max(diameter[0], leftHeight + rightHeight);
+        return Math.max(leftHeight, rightHeight) + 1;
+    }
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        String input = sc.nextLine();
+        String[] nodes = input.split(" ");
+        Node root = buildTree(nodes);
+        int diameter = calculateDiameter(root);
+        System.out.println(diameter);
+    }
+}
