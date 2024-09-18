@@ -1,0 +1,60 @@
+/* Problem : Praveen is the Professor of a professional robbery group. And now Praveen is planning to rob houses along a street. Each house has a certain amount of money stashed, 
+but the only constraint stopping Praveen from robbing each of them is that adjacent houses have security systems connected, and they will automatically contact the police if two 
+adjacent houses are broken into on the same night. Given an integer array representing the amount of money in each house, as the professor, Praveen must plan smart to get the
+maximum amount of money without alerting the police. Write a recursive function, maximumLoot(), that returns the maximum amount that can be robbed.
+
+Note: This kind of question helps in clearing Amazon recruitment.
+
+Input Format
+The first line of input consists of an integer denoting the number of houses (n). The second line of input consists of the amount in each house, separated by a space.
+
+Constraints
+1 <= n <= 20 amount in each house > 0
+
+Output Format
+The output prints the maximum loot that is possible without alerting the police.
+
+Sample Input 0
+5
+2 7 9 3 1
+Sample Output 0
+12
+Explanation 0
+Rob house 1 (money = 2), rob house 3 (money = 9), and rob house 5 (money = 1). Total amount you can rob = 2 + 9 + 1 = 12.
+
+Sample Input 1
+6
+5 1 2 6 3 4
+Sample Output 1
+15
+Explanation 1
+Rob house 1 (money = 5), rob house 4 (money = 6), and rob house 6 (money = 4). Total amount you can rob = 5 + 6 + 4 = 15. */
+
+Solution :- 
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+    public static int maximumLoot(int[] houses,int n){
+        if(n==0){
+            return 0;
+        }
+        if(n==1){
+            return houses[0];
+        }
+        int robCurrent = houses[n-1] + maximumLoot(houses,n-2);
+        int skipCurrent = maximumLoot(houses,n-1);
+        
+        return Math.max(robCurrent, skipCurrent);
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] houses = new int[n];
+        for(int i=0;i<n;i++){
+            houses[i] = sc.nextInt();
+        }
+        int result = maximumLoot(houses,n);
+        System.out.println(result);
+    }
+}
